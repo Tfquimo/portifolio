@@ -688,7 +688,27 @@
 
   <!-- Arquivo JS principal -->
   <script src="assets/js/main.js"></script>
-  <script>
+  <script> 
+    // Garantir que a página abra sempre na seção hero: limpar hash e rolar para topo/seção hero ao carregar
+    window.addEventListener('load', function () {
+      try {
+        if (location.hash && location.hash !== '#hero') {
+          // Remove o hash da URL sem criar histórico
+          history.replaceState(null, document.title, location.pathname + location.search);
+          // Rola até a seção hero se existir, caso contrário rola para o topo
+          var hero = document.getElementById('hero');
+          if (hero) {
+            hero.scrollIntoView({ behavior: 'auto' });
+          } else {
+            window.scrollTo(0, 0);
+          }
+        }
+      } catch (e) {
+        // Silencioso: se algo falhar, não interrompe o restante dos scripts
+        console.error('Erro ao forçar seção inicial:', e);
+      }
+    });
+
     // Dados dos projetos do portfólio
     const portfolioData = [
       {
