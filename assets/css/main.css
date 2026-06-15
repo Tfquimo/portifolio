@@ -543,7 +543,14 @@ section,
 --------------------------------------------------------------*/
 #hero,
 .hero {
-  background: #0a1628 !important;
+  background:
+    linear-gradient(
+      to right,
+      rgba(10, 22, 40, 0.88) 0%,
+      rgba(10, 22, 40, 0.65) 50%,
+      rgba(10, 22, 40, 0.45) 100%
+    ),
+    url('../img/hero-bg-field.png') center center / cover no-repeat !important;
   background-color: #0a1628 !important;
   min-height: 100vh;
   display: flex;
