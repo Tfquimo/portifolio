@@ -412,6 +412,7 @@
             <li data-filter="*" class="filter-active">Todos</li>
             <li data-filter=".filter-cctv">CCTV</li>
             <li data-filter=".filter-redes">Redes</li>
+            <li data-filter=".filter-fibra">Fibra Ótica</li>
             <li data-filter=".filter-web">Web</li>
             <li data-filter=".filter-manutencao">Manutenção</li>
           </ul><!-- End Portfolio Filters -->
@@ -510,6 +511,30 @@
                   <p>Suporte elétrico para infraestruturas de TI</p>
                   <a href="#" class="glightbox preview-link" onclick="showPortfolioModal(7);return false;"><i class="bi bi-zoom-in"></i></a>
                   <a href="#" class="details-link" onclick="showPortfolioModal(7);return false;" title="Mais Detalhes"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-fibra">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/fibra-optica-1.jpg" class="img-fluid" alt="Fusão de Fibra Ótica">
+                <div class="portfolio-info">
+                  <h4>Fusão de Fibra Ótica</h4>
+                  <p>Emenda de cabos de fibra ótica com fusionadora profissional</p>
+                  <a href="#" class="glightbox preview-link" onclick="showPortfolioModal(8);return false;"><i class="bi bi-zoom-in"></i></a>
+                  <a href="#" class="details-link" onclick="showPortfolioModal(8);return false;" title="Mais Detalhes"><i class="bi bi-link-45deg"></i></a>
+                </div>
+              </div>
+            </div><!-- End Portfolio Item -->
+
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-fibra">
+              <div class="portfolio-content h-100">
+                <img src="assets/img/portfolio/fibra-optica-2.jpg" class="img-fluid" alt="Teste OTDR em Campo">
+                <div class="portfolio-info">
+                  <h4>Teste OTDR em Campo</h4>
+                  <p>Medição e análise de sinais com equipamento OTDR Yokogawa</p>
+                  <a href="#" class="glightbox preview-link" onclick="showPortfolioModal(9);return false;"><i class="bi bi-zoom-in"></i></a>
+                  <a href="#" class="details-link" onclick="showPortfolioModal(9);return false;" title="Mais Detalhes"><i class="bi bi-link-45deg"></i></a>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
@@ -852,6 +877,28 @@
           "<strong>Serviço:</strong> Eletricidade Instaladora",
           "<strong>Tecnologia:</strong> Quadros Elétricos"
         ]
+      },
+      {
+        title: "Fusão de Fibra Ótica",
+        img: "assets/img/portfolio/fibra-optica-1.jpg",
+        desc: "Emenda profissional de cabos de fibra ótica utilizando fusionadora de arco elétrico. Este processo garante uma ligação de alta qualidade com perdas mínimas de sinal, sendo fundamental para redes FTTH (Fiber to the Home) e instalações de internet de alta velocidade.",
+        info: [
+          "<strong>Categoria:</strong> Telecomunicações",
+          "<strong>Serviço:</strong> Instalação de Fibra Ótica",
+          "<strong>Tecnologia:</strong> Fusionadora de Fibra, Cabos FTTH/FTTB",
+          "<strong>Local:</strong> Nampula, Moçambique"
+        ]
+      },
+      {
+        title: "Teste OTDR em Campo",
+        img: "assets/img/portfolio/fibra-optica-2.jpg",
+        desc: "Diagnóstico e medição de infraestrutura de fibra ótica com equipamento OTDR (Optical Time-Domain Reflectometer) Yokogawa. O OTDR permite identificar com precisão falhas, emendas e a atenuação ao longo de toda a extensão do cabo ótico, garantindo a qualidade da instalação.",
+        info: [
+          "<strong>Categoria:</strong> Telecomunicações",
+          "<strong>Serviço:</strong> Testes e Certificação de Fibra Ótica",
+          "<strong>Equipamento:</strong> OTDR Yokogawa + Fusionadora",
+          "<strong>Local:</strong> Nampula, Moçambique"
+        ]
       }
     ];
 
@@ -868,35 +915,40 @@
     }
 
     // Inicialize o EmailJS com sua PUBLIC KEY
-    emailjs.init('Xw0bv3zVpKmxh3r4c'); // Substitua pela sua Public Key do EmailJS
+    emailjs.init('Xw0bv3zVpKmxh3r4c');
 
-    document.addEventListener('DOMContentLoaded', function () {
-      var form = document.getElementById('contact-form');
-      if (form) {
-        form.addEventListener('submit', function (e) {
-          e.preventDefault();
+    // Formulário de Contato via EmailJS
+    var contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
 
-          // Se usar o campo time, descomente abaixo:
-          // var timeInput = form.querySelector('input[name="time"]');
-          // if (timeInput) {
-          //   timeInput.value = new Date().toLocaleString();
-          // }
+        var btn = contactForm.querySelector('button[type="submit"]');
+        var successMsg = document.getElementById('form-success');
+        var errorMsg = document.getElementById('form-error');
 
-          // Corrija: remova os dois pontos do TEMPLATE_ID!
-          emailjs.sendForm('service_fis1ogc', 'template_brksxff', form)
-            .then(function () {
-              document.getElementById('form-success').style.display = 'block';
-              document.getElementById('form-error').style.display = 'none';
-              form.reset();
-            }, function (error) {
-              // Mostra mensagem de erro detalhada no console para debug
-              console.error('EmailJS error:', error);
-              document.getElementById('form-error').style.display = 'block';
-              document.getElementById('form-success').style.display = 'none';
-            });
-        });
-      }
-    });
+        btn.disabled = true;
+        btn.textContent = 'A enviar...';
+        successMsg.style.display = 'none';
+        errorMsg.style.display = 'none';
+
+        emailjs.sendForm('service_fis1ogc', 'template_brksxff', contactForm)
+          .then(function () {
+            successMsg.style.display = 'block';
+            errorMsg.style.display = 'none';
+            contactForm.reset();
+            btn.disabled = false;
+            btn.textContent = 'Enviar Mensagem';
+          }, function (error) {
+            console.error('EmailJS error:', JSON.stringify(error));
+            errorMsg.textContent = 'Erro ao enviar: ' + (error.text || 'Verifique os dados e tente novamente.');
+            errorMsg.style.display = 'block';
+            successMsg.style.display = 'none';
+            btn.disabled = false;
+            btn.textContent = 'Enviar Mensagem';
+          });
+      });
+    }
   </script>
 
 </body>
