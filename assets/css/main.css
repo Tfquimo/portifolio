@@ -541,8 +541,10 @@ section,
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
+#hero,
 .hero {
-  background: #0a1628;
+  background: #0a1628 !important;
+  background-color: #0a1628 !important;
   min-height: 100vh;
   display: flex;
   align-items: center;
