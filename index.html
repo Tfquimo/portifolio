@@ -902,39 +902,37 @@
       modal.show();
     }
 
-    // Inicialize o EmailJS com sua PUBLIC KEY
-    emailjs.init('Xw0bv3zVpKmxh3r4c');
-
-    // Formulário de Contato via EmailJS
+    // Formulário de Contato - abre o app de email com os dados preenchidos
     var contactForm = document.getElementById('contact-form');
     if (contactForm) {
       contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        var btn = contactForm.querySelector('button[type="submit"]');
-        var successMsg = document.getElementById('form-success');
-        var errorMsg = document.getElementById('form-error');
+        var name    = document.getElementById('name-field').value.trim();
+        var email   = document.getElementById('email-field').value.trim();
+        var subject = document.getElementById('subject-field').value.trim();
+        var message = document.getElementById('message-field').value.trim();
 
-        btn.disabled = true;
-        btn.textContent = 'A enviar...';
-        successMsg.style.display = 'none';
-        errorMsg.style.display = 'none';
+        if (!name || !email || !subject || !message) {
+          document.getElementById('form-error').textContent = 'Por favor preencha todos os campos.';
+          document.getElementById('form-error').style.display = 'block';
+          return;
+        }
 
-        emailjs.sendForm('service_fis1ogc', 'template_brksxff', contactForm)
-          .then(function () {
-            successMsg.style.display = 'block';
-            errorMsg.style.display = 'none';
-            contactForm.reset();
-            btn.disabled = false;
-            btn.textContent = 'Enviar Mensagem';
-          }, function (error) {
-            console.error('EmailJS error:', JSON.stringify(error));
-            errorMsg.textContent = 'Erro ao enviar: ' + (error.text || 'Verifique os dados e tente novamente.');
-            errorMsg.style.display = 'block';
-            successMsg.style.display = 'none';
-            btn.disabled = false;
-            btn.textContent = 'Enviar Mensagem';
-          });
+        var body = 'Nome: ' + name + '\n'
+                 + 'Email: ' + email + '\n\n'
+                 + 'Mensagem:\n' + message;
+
+        var mailtoURL = 'mailto:taufiquequimo@gmail.com'
+                      + '?subject=' + encodeURIComponent(subject + ' | Mensagem do Portfólio')
+                      + '&body='    + encodeURIComponent(body);
+
+        window.location.href = mailtoURL;
+
+        document.getElementById('form-success').textContent = 'O seu app de email foi aberto com a mensagem pronta a enviar!';
+        document.getElementById('form-success').style.display = 'block';
+        document.getElementById('form-error').style.display = 'none';
+        contactForm.reset();
       });
     }
   </script>
