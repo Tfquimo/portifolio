@@ -765,6 +765,8 @@ section,
   }
   .hero .hero-typed-line {
     font-size: 20px;
+    min-height: 65px;
+    display: block;
   }
   .hero .hero-cta {
     flex-direction: column;
