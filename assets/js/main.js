@@ -89,16 +89,16 @@
   /**
    * Init typed.js
    */
-  const selectTyped = document.querySelector('.typed');
-  if (selectTyped) {
-    let typed_strings = selectTyped.getAttribute('data-typed-items');
-    typed_strings = typed_strings.split(',');
+  const typedEl = document.querySelector('.typed');
+  if (typedEl) {
+    const items = typedEl.getAttribute('data-typed-items').split(',').map(s => s.trim());
     new Typed('.typed', {
-      strings: typed_strings,
+      strings: items,
+      typeSpeed: 70,
+      backSpeed: 40,
+      backDelay: 1800,
       loop: true,
-      typeSpeed: 100,
-      backSpeed: 50,
-      backDelay: 2000
+      smartBackspace: true,
     });
   }
 
@@ -228,22 +228,7 @@
     // Inicialização do AOS (animações ao rolar)
     if (window.AOS) AOS.init({ duration: 800, easing: 'slide', once: true });
 
-    // Inicialização do Typed.js para animação de texto
-    if (window.Typed) {
-      const typedElements = document.querySelectorAll('.typed');
-      typedElements.forEach(function (el) {
-        const items = el.getAttribute('data-typed-items');
-        if (items) {
-          new Typed(el, {
-            strings: items.split(','),
-            typeSpeed: 100,
-            backSpeed: 50,
-            backDelay: 2000,
-            loop: true
-          });
-        }
-      });
-    }
+    // Typed.js já inicializado acima (evitar duplicação)
 
     // Inicialização do PureCounter (contadores animados)
     if (window.PureCounter) new PureCounter();
